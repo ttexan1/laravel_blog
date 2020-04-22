@@ -1,9 +1,28 @@
-# docker-laravel
+# LEMP研修課題
 
-Build Laravel's development environment using docker.
-PHP7.4/MySQL8.0/nginx/redis/node
+## 立ち上げ
+```
+$ docker-compose up --build
+```
+http://localhost:10080
 
-## Build
+## 概要
 
-- [Build for Mac](https://github.com/ucan-lab/docker-laravel/wiki/Build-for-Mac)
-- [Build for Windows](https://github.com/ucan-lab/docker-laravel/wiki/Build-for-Windows)
+#### 実装した機能
+* ユーザー登録・認証
+* ブログCRUD
+* ブログ記事CRUD
+
+#### 使用した技術
+* nginx
+* php
+* Laravel
+* mysql
+* redis
+
+## アピールポイント
+* phpを使うのは初めてだったので、Laravelフレームワークを使用し、基本的な機能を効率的に実装した。
+* 単純にブラウザ上からCRUDできるだけでなく、ページ遷移も意識して実装した。
+* ブログのヘッダーイメージなどを登録するために、画像アップロード機能を搭載した。
+* 認証機能はLaravelのおかげで、一発でできたので、それに基づきブログの編集・削除権限の設定を実装した。
+* bootstrapを用いて、CSSの量を抑えることで実装時間を短縮した。
