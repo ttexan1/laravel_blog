@@ -12,7 +12,7 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         DB::table('articles')->truncate();
-        $blogs = \App\Blog::find([1,2,3]);
+        $blogs = \App\Blog::all();
         $articles = [
         ['title' => 'PHP Blog', 'status' => 'publised',
             'body' => "PHPでブログを作りました"],
@@ -23,9 +23,12 @@ class ArticlesTableSeeder extends Seeder
         ];
         // 登録
         foreach($blogs as $blog) {
+            $i = 1;
             foreach($articles as $article) {
+                $article['body'] = \File::get("database/seeds/article_samples/sample$i.txt");
                 $article['blog_id'] = $blog->id;
                 \App\Article::create($article);
+                $i = $i + 1;
             }
         }
     }

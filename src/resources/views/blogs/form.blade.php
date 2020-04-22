@@ -1,7 +1,7 @@
 <div class="container ops-main">
   <div class="row">
     <div class="col-md-6">
-      <h2>書籍登録</h2>
+      <h2>ブログ作成</h2>
     </div>
   </div>
   <div class="row">
@@ -27,7 +27,7 @@
       @endif
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
-          <label for="name">ブログタイトル</label>
+          <label for="name">タイトル</label>
           <input type="text" class="form-control" name="name" value="{{ $blog->name }}">
         </div>
         <div class="form-group">
@@ -35,11 +35,13 @@
           <input type="text" class="form-control" name="subtitle" value="{{ $blog->subtitle }}">
         </div>
         <div class="form-group">
-        <label for="file">ヘッダーイメージ画像</label>
+          <p><label for="file">ヘッダーイメージ画像</label></p>
           <input type="file" name="header_image">
         </div>
-        <button type="submit" class="btn btn-default">登録</button>
-        <a href="/blog">戻る</a>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-default">登録</button>
+          <a href="/blog">戻る</a>
+        </div>
       </form>
     </div>
   </div>

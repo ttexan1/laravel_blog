@@ -17,10 +17,14 @@ class UsersTableSeeder extends Seeder
             'name' => '東 哲志',
             'email' => "user@example.com",
             'password' => Hash::make("password")
+        ],[
+            'name' => '東 哲志',
+            'email' => "user2@example.com",
+            'password' => Hash::make("password")
         ]];
         // 登録
         foreach($users as $user) {
-        \App\User::create($user);
+            \App\User::create($user);
         }
     }
 }

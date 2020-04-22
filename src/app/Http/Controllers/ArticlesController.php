@@ -11,6 +11,15 @@ use App\Article;
 
 class ArticlesController extends Controller
 {
+    public function index($blog_id) {
+        $user = Auth::user();
+        if(!$user) {
+            abort('404');
+        }
+        $blog = $user->blogs->find($blog_id);
+        $articles = $blog->articles;
+        return view('articles/index', compact('blog', 'articles'));
+    }
     public function show($blog_id, $id) {
         $blog = Blog::findOrFail($blog_id);
         $articles = Article::where('blog_id', $blog->id)->orderBy('published_at', 'desc')->get();
@@ -86,6 +95,6 @@ class ArticlesController extends Controller
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return redirect("/blogs/$blog->id");
+        return redirect("/blogs/$blog->id/articles");
     }
 }

@@ -12,19 +12,21 @@ class BlogsTableSeeder extends Seeder
   public function run()
   {
     DB::table('blogs')->truncate();
-    $user = \App\User::find(1);
+    $users = \App\User::all();
     $blogs = [
-      ['name' => 'PHP Blog', 'user_id' => $user->id,
+      ['name' => 'PHP Blog',
         'subtitle' => "PHPでブログを作りました"],
-      ['name' => 'Laravel Blog', 'user_id' => $user->id,
+      ['name' => 'Laravel Blog',
         'subtitle' => "Laravelでブログを作りました"],
-      ['name' => 'Ruby Blog', 'user_id' => $user->id,
+      ['name' => 'Ruby Blog',
         'subtitle' => "Rubyでブログを作りました"]
-      ];
-    // 登録
-    foreach($blogs as $blog) {
-      $blog['last_posted_at'] = Carbon::now();
-      \App\Blog::create($blog);
+    ];
+    foreach($users as $user) {
+      foreach($blogs as $blog) {
+        $blog['user_id'] = $user->id;
+        $blog['last_posted_at'] = Carbon::now();
+        \App\Blog::create($blog);
+      }
     }
   }
 }

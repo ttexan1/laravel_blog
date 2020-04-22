@@ -31,3 +31,8 @@ h3.title {
   width: 60px;
   background: #AAA
 }
+
+
+input[type="radio"] {
+  margin-right: 4px;
+}

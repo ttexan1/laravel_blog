@@ -26,7 +26,7 @@
                 <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a>
                 <style>
                 </style>
-                <form action="/blog/{{ $blog->id }}" method="post">
+                <form action="/blogs/{{ $blog->id }}/articles/{{$article->id}}" method="post">
                   <input type="hidden" name="_method" value="DELETE">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <button type="submit" class="btn btn-xs btn-danger" aria-label="Left Align">
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="card mb-4 box-shadow p-4 text-left">
-          {{$article->body}}
+        {!! nl2br(e($article->body)) !!}
         </div>
       </div>
 

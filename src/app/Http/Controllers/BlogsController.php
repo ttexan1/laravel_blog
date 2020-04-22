@@ -7,13 +7,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogRequest;
+use Illuminate\Support\Facades\DB;
+use PDO;
 use App\Blog;
 use App\Article;
 
 class BlogsController extends Controller
 {
   public function index() {
-    $blogs = Blog::all();
+    // $blogs = Blog::all();
+    // 一応一箇所だけPDOを使ってデータベースアクセスした痕跡を残しておく。
+    $stmt = DB::connection()->getPdo()->prepare("select * from blogs");
+    $stmt->execute();
+    $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    for ($i = 0; $i < count($blogs); $i++) {
+      $blogs[$i] = (object)$blogs[$i];
+    }
     return view('blogs/index', compact('blogs'));
   }
 

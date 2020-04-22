@@ -13,40 +13,40 @@
   <!-- </div> -->
 <!-- </section> -->
 
+@if (count($articles) != 0)
 <div class="album py-5 bg-light">
   <div class="container">
     <div class="row">
       <div class="col-md-8 p-0">
         <div class="mb-4 box-shadow">
           <div class="title d-flex justify-content-between">
-            @if (count($articles) != 0)
-              <h1>{{$articles[0]->title}}</h1>
-              <div class="edit d-flex justify-content-between align-items-center">
-                @if (Auth::user()->blogs->find($blog->id)->articles->find($articles[0]->id))
-                  <!-- <p>{{$articles[0]->published_at}}</p> -->
-                  <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a>
-                  <style>
-                  </style>
-                  <form action="/blog/{{ $blog->id }}" method="post">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-xs btn-danger" aria-label="Left Align">
-                      <span class="glyphicon glyphicon-trash">削除</span>
-                    </button>
-                  </form>
-                @else
-                  <p>{{$articles[0]->published_at}}</p>
-                @endif
+            <h1>{{$articles[0]->title}}</h1>
+            <div class="edit d-flex justify-content-between align-items-center">
+              @if (Auth::user()->blogs->find($blog->id)->articles->find($articles[0]->id))
+                <!-- <p>{{$articles[0]->published_at}}</p> -->
+                <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a>
+                <style>
+                </style>
+                <form action="/blogs/{{ $blog->id }}/articles/{{$articles[0]->id}}" method="post">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-xs btn-danger" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-trash">削除</span>
+                  </button>
+                </form>
+              @else
+                <p>{{$articles[0]->published_at}}</p>
               @endif
             </div>
           </div>
         </div>
         <div class="card mb-4 box-shadow p-4 text-left">
         @if (count($articles) != 0)
-          {{$articles[0]->body}}
+          {!! nl2br(e($articles[0]->body)) !!}
         @endif
         </div>
       </div>
+
 
       <div class="col-md-4">
         <div class="mb-4 box-shadow" style="height: 51px"></div>
@@ -69,5 +69,14 @@
     </div>
   </div>
 </div>
+@else
+  <p style="margin: 32px">まだ投稿された記事がありません。</p>
+  @if (Auth::user()->blogs->find($blog->id) != null)
+    <p style="margin: 32px">
+      <a href="/blogs/{{$blog->id}}/articles/create">記事を投稿する</a>
+    </p>
+  @endif
+
+@endif
 
 @endsection
