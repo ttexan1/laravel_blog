@@ -20,26 +20,27 @@
         </div>
       </div>
       @if($target == 'store')
-      <form action="/blogs" method="post" enctype="multipart/form-data" >
+      <form action="/blogs/{{$blog->id}}/articles" method="post">
       @elseif($target == 'update')
-      <form action="/blogs/{{ $blog->id }}" method="post" enctype="multipart/form-data" >
+      <form action="/blogs/{{$blog->id}}/articles/{{ $article->id }}" method="post">
           <input type="hidden" name="_method" value="PUT">
       @endif
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
-          <label for="name">ブログタイトル</label>
-          <input type="text" class="form-control" name="name" value="{{ $blog->name }}">
+          <label for="name">記事タイトル</label>
+          <input type="text" class="form-control" name="title" value="{{ $article->title }}">
         </div>
         <div class="form-group">
-          <label for="subtitle">サブタイトル</label>
-          <input type="text" class="form-control" name="subtitle" value="{{ $blog->subtitle }}">
+          <label for="subtitle">内容</label>
+          <textarea type="text" class="form-control" name="body" value="{{ $article->body }}"></textarea>
         </div>
         <div class="form-group">
-        <label for="file">ヘッダーイメージ画像</label>
-          <input type="file" name="header_image">
+          <p><label for="header_image_url">公開設定</label></p>
+          <input type="radio" name="status" value="draft" checked="checked">下書き
+          <input type="radio" name="status" value="published">公開
         </div>
         <button type="submit" class="btn btn-default">登録</button>
-        <a href="/blog">戻る</a>
+        <p><a href="/article">戻る</a></p>
       </form>
     </div>
   </div>

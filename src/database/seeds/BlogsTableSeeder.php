@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Carbon\Carbon;
 class BlogsTableSeeder extends Seeder
 {
   /**
@@ -12,18 +12,18 @@ class BlogsTableSeeder extends Seeder
   public function run()
   {
     DB::table('blogs')->truncate();
-
-    // 初期データ用意（列名をキーとする連想配列）
+    $user = \App\User::find(1);
     $blogs = [
-      ['name' => 'PHP Blog',
+      ['name' => 'PHP Blog', 'user_id' => $user->id,
         'subtitle' => "PHPでブログを作りました"],
-      ['name' => 'Laravel Blog',
+      ['name' => 'Laravel Blog', 'user_id' => $user->id,
         'subtitle' => "Laravelでブログを作りました"],
-      ['name' => 'Ruby Blog',
+      ['name' => 'Ruby Blog', 'user_id' => $user->id,
         'subtitle' => "Rubyでブログを作りました"]
       ];
     // 登録
     foreach($blogs as $blog) {
+      $blog['last_posted_at'] = Carbon::now();
       \App\Blog::create($blog);
     }
   }
