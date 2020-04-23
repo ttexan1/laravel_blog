@@ -21,7 +21,7 @@
           <div class="title d-flex justify-content-between">
             <h1>{{$article->title}}</h1>
             <div class="edit d-flex justify-content-between align-items-center">
-              @if (Auth::user()->blogs->find($blog->id) != null)
+              @if (Auth::user() != null && Auth::user()->blogs->find($blog->id) != null)
                 <!-- <p>{{$articles[0]->published_at}}</p> -->
                 <a href="/blogs/{{ $blog->id }}/articles/{{$article->id}}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a>
                 <style>
