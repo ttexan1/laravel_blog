@@ -32,16 +32,16 @@
         </div>
         <div class="form-group">
           <label for="subtitle">内容</label>
-          <textarea type="text" class="form-control" name="body" value="{{ $article->body }}" rows=10></textarea>
+          <textarea type="text" class="form-control" name="body" rows=10>{{ $article->body }}</textarea>
         </div>
         <div class="form-group">
           <p><label for="header_image_url">公開設定</label></p>
-          <input type="radio" name="status" value="draft" checked="checked">下書き
-          <input type="radio" name="status" value="published">公開
+          {{Form::radio('status', 'draft', true)}}下書き
+          {{Form::radio('status', 'published')}}公開
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <button type="submit" class="btn btn-primary">保存</button>
-          <p><a href="/article">戻る</a></p>
+          <p><a href="/blogs/{{$blog->id}}/articles">戻る</a></p>
         </div>
       </form>
     </div>

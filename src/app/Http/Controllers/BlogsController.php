@@ -15,21 +15,32 @@ use App\Article;
 class BlogsController extends Controller
 {
   public function index() {
-    // $blogs = Blog::all();
-    // 一応一箇所だけPDOを使ってデータベースアクセスした痕跡を残しておく。
-    $stmt = DB::connection()->getPdo()->prepare("select * from blogs");
-    $stmt->execute();
-    $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    for ($i = 0; $i < count($blogs); $i++) {
-      $blogs[$i] = (object)$blogs[$i];
-    }
+    $blogs = Blog::all();
     return view('blogs/index', compact('blogs'));
   }
 
   public function show($id) {
-    $blog = Blog::findOrFail($id);
-    $articles = Article::where('blog_id', $blog->id)->orderBy('published_at', 'desc')->get();
-    // $articles = $blog->articles->sortByDesc('published_at');
+    // 一応一箇所だけPDOを使ってデータベースアクセスした痕跡を残しておく。
+
+    // blog
+    $stmt = DB::connection()->getPdo()->prepare("select * from `blogs` where id=:id");
+    $stmt->bindParam( ":id", $id );
+    $stmt->execute();
+    $blog = (object)($stmt->fetch(PDO::FETCH_ASSOC));
+    // blog->user
+    $stmt = DB::connection()->getPdo()->prepare("select * from `users` where id=:user_id");
+    $stmt->bindParam( ":user_id", $blog->user_id );
+    $stmt->execute();
+    $blog->user = (object)($stmt->fetch(PDO::FETCH_ASSOC));
+    // articles
+    $stmt = DB::connection()->getPdo()->prepare("select * from articles where status = 'published' and blog_id=:blog_id order by published_at desc");
+    $stmt->bindParam( ":blog_id", $blog->id );
+    $stmt->execute();
+    $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    for ($i = 0; $i < count($articles); $i++) {
+      $articles[$i] = (object)$articles[$i];
+    }
+
     return view('blogs/show', compact('blog', 'articles'));
   }
 

@@ -22,18 +22,8 @@
           <div class="title d-flex justify-content-between">
             <h1>{{$articles[0]->title}}</h1>
             <div class="edit d-flex justify-content-between align-items-center">
-              @if (Auth::user()->blogs->find($blog->id)->articles->find($articles[0]->id))
-                <!-- <p>{{$articles[0]->published_at}}</p> -->
-                <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a>
-                <style>
-                </style>
-                <form action="/blogs/{{ $blog->id }}/articles/{{$articles[0]->id}}" method="post">
-                  <input type="hidden" name="_method" value="DELETE">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <button type="submit" class="btn btn-xs btn-danger" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-trash">削除</span>
-                  </button>
-                </form>
+              @if (Auth::user()->blogs->find($blog->id) != null)
+                <a href="/blogs/{{ $blog->id }}/articles/{{$articles[0]->id}}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a>
               @else
                 <p>{{$articles[0]->published_at}}</p>
               @endif

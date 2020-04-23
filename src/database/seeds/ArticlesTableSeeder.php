@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Carbon\Carbon;
 class ArticlesTableSeeder extends Seeder
 {
     /**
@@ -14,9 +14,9 @@ class ArticlesTableSeeder extends Seeder
         DB::table('articles')->truncate();
         $blogs = \App\Blog::all();
         $articles = [
-        ['title' => 'PHP Blog', 'status' => 'publised',
+        ['title' => 'PHP Blog', 'status' => 'published', 'published_at' => Carbon::now(),
             'body' => "PHPでブログを作りました"],
-        ['title' => 'Laravel Blog', 'status' => 'draft',
+        ['title' => 'Laravel Blog', 'status' => 'published', 'published_at' => Carbon::now(),
             'body' => "Laravelでブログを作りました"],
         ['title' => 'Ruby Blog', 'status' => 'draft',
             'body' => "Rubyでブログを作りました"]

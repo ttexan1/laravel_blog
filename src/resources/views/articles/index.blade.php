@@ -28,6 +28,7 @@
         <th class="text-left">記事タイトル</th>
         <th class="text-left" width="400px">内容</th>
         <th class="text-left">ステータス</th>
+        <th class="text-left">公開日</th>
         <th class="text-left"></th>
         <th class="text-left"></th>
       </tr>
@@ -43,6 +44,7 @@
         @else
           <td class="text-left">公開中</td>
         @endif
+        <td class="text-left">{{$article->published_at}}</td>
         <td class="text-left"><a href="/blogs/{{ $blog->id }}/articles/{{$article->id}}/edit" class="btn btn-xs btn-primary edit mr-2" style="height: 37px">編集</a></td>
         <td class="text-left">
           <form action="/blogs/{{ $blog->id }}/articles/{{$article->id}}" method="post">
@@ -59,6 +61,6 @@
   </div>
 @endif
   <div class="text-center" style="width:100%">
-    <a href="/articles/create" class="btn btn-default">新規記事作成</a>
+    <a href="/blogs/{{$blog->id}}/articles/create" class="btn btn-default">新規記事作成</a>
   </div>
 @endsection
