@@ -15,12 +15,15 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('blog_id');
+            $table->bigInteger('blog_id')->unsigned();
             $table->string('title', 63);
             $table->longText('body');
             $table->string('status', 15)->default('draft');
             $table->dateTime('published_at')->nullable();
-            $table->timestamps();
+
+            $table->foreign('blog_id')->references('id')->on('blogs');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

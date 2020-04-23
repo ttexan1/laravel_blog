@@ -11,7 +11,6 @@ class BlogsTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('blogs')->truncate();
     $users = \App\User::all();
     $blogs = [
       ['name' => 'PHP Blog',

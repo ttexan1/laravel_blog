@@ -15,12 +15,15 @@ class CreateBlogsTable extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
+            $table->bigInteger('user_id')->unsigned();
             $table->string('name', 63);
             $table->string('subtitle', 255);
             $table->string('header_image_url', 255)->nullable();
             $table->dateTime('last_posted_at')->nullable();
-            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

@@ -11,7 +11,6 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('articles')->truncate();
         $blogs = \App\Blog::all();
         $articles = [
         ['title' => 'PHP Blog', 'status' => 'published', 'published_at' => Carbon::now(),
@@ -21,7 +20,6 @@ class ArticlesTableSeeder extends Seeder
         ['title' => 'Ruby Blog', 'status' => 'draft',
             'body' => "Rubyでブログを作りました"]
         ];
-        // 登録
         foreach($blogs as $blog) {
             $i = 1;
             foreach($articles as $article) {
